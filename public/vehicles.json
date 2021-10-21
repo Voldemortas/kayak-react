@@ -1,0 +1,47 @@
+[
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/01_mini_white.png?width=108&height=72",
+    "name": "Small",
+    "price": 178
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/02_economy_white.png?width=108&height=72",
+    "name": "Medium",
+    "price": 187
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/03_standard_white.png?width=108&height=72",
+    "name": "Large",
+    "price": 223
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/05_suv-small_white.png?width=108&height=72",
+    "name": "SUV",
+    "price": 263
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/11_van_white.png?width=108&height=72",
+    "name": "Van",
+    "price": 432
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/12_truck_white.png?width=108&height=72",
+    "name": "Pickup Truck",
+    "price": 307
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/04_premium.png?width=108&height=72",
+    "name": "Luxury",
+    "price": 360
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/08_convertible_white.png?width=108&height=72",
+    "name": "Convertible",
+    "price": 429
+  },
+  {
+    "img": "https://content.r9cdn.net/rimg/carimages/generic/14_commercial_white.png?width=108&height=72",
+    "name": "Commercial",
+    "price": 657
+  }
+]

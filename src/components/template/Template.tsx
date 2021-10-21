@@ -1,4 +1,3 @@
-import react from 'react'
 import styles from './Template.module.css'
 import useTemplate from './useTemplate'
 
