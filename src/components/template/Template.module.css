@@ -1,0 +1,13 @@
+.blue {
+  color: royalblue;
+}
+
+.pink {
+  color: plum;
+}
+
+.template:hover {
+  user-select: none;
+  cursor: pointer;
+  background-color: #fafafa;
+}
