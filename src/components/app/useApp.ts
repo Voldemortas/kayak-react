@@ -1,4 +1,4 @@
-import { Vehicle } from 'commons'
+import { Vehicle, RestVehicle } from 'commons'
 import { useEffect, useState } from 'react'
 
 type Response = {
@@ -6,28 +6,24 @@ type Response = {
   toggleVehicle: (index: number) => void
 }
 
-type RestVehicle = {
-  img: string
-  price: number
-  name: string
-}
-
 function useApp(): Response {
   const [vehicles, setVehicles] = useState<Vehicle[] | undefined>(undefined)
 
   useEffect(() => {
     ;(async () => {
-      setVehicles(await getVehicles())
+      const vehicles = await getVehicles()
+
+      setVehicles(vehicles)
     })()
   }, [])
 
   function toggleVehicle(index: number): void {
-    const vehicleToToggle = vehicles!.splice(index, index + 1)[0]
+    const vehicleToToggle = vehicles!.slice(index, index + 1)[0]
 
     setVehicles([
-      ...vehicles!.splice(index - 1, index),
+      ...vehicles!.slice(0, index),
       { ...vehicleToToggle, isSelected: !vehicleToToggle.isSelected },
-      ...vehicles!.splice(index + 1),
+      ...vehicles!.slice(index + 1),
     ])
   }
 
