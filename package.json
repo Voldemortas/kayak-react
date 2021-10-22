@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^7.0.2",
+    "jest-mock-extended": "^2.0.4",
     "prettier": "2.4.1"
   }
 }

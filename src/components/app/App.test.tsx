@@ -1,14 +1,36 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import { mock } from 'jest-mock-extended'
+import { Vehicle } from 'commons'
 import App from './App'
 
-test('renders zdarova pacany', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/green/i)
-  expect(linkElement).toBeInTheDocument()
-  expect(screen.getByTestId('Template')).toBeInTheDocument()
-  expect(screen.queryByText('template')).not.toBeInTheDocument()
+import * as useApp from './useApp'
+
+describe('App', () => {
+  const toggleVehicle = jest.fn()
+
+  test('useApp returns undefined vehicles', () => {
+    spypHook(undefined)
+
+    const container = render(<App />)
+
+    expect(container.queryAllByTestId('Skeleton')).toHaveLength(5)
+  })
+
+  test('useApp returns defined vehicles', () => {
+    const vehicle = mock<Vehicle>({ name: 'adzin' })
+    spypHook([vehicle])
+
+    const container = render(<App />)
+
+    expect(container.queryAllByTestId('Skeleton')).toHaveLength(0)
+    expect(container.getByText('adzin')).toBeInTheDocument()
+  })
+
+  function spypHook(vehicles: Vehicle[] | undefined) {
+    jest.spyOn(useApp, 'default').mockReturnValue({ vehicles, toggleVehicle })
+  }
 })
 
 jest.mock('components', () => ({
-  Template: () => <span data-testid="Template" />,
+  Skeleton: () => <span data-testid="Skeleton" />,
 }))
