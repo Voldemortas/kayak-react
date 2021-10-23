@@ -14,8 +14,8 @@ const VehicleButton = (props: Props) => {
   const combinedStyle = [styles.container, !!selected ? styles.selected : null]
 
   return (
-    <Tabbable onClick={onClick}>
-      <div className={combinedStyle.join(' ')}>{children}</div>
+    <Tabbable onClick={onClick} className={combinedStyle.join(' ')}>
+      {children}
     </Tabbable>
   )
 }

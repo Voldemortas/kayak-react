@@ -8,17 +8,17 @@ import { act } from 'react-dom/test-utils'
 describe('test Button', () => {
   describe('test styles', () => {
     it('should render button with basic container class by default', () => {
-      const { content } = renderButton()
+      const { button } = renderButton()
 
-      expect(content).toHaveClass(styles.container)
-      expect(content).not.toHaveClass(styles.selected)
+      expect(button).toHaveClass(styles.container)
+      expect(button).not.toHaveClass(styles.selected)
     })
 
     it('should render with basic container and selected classes when selected=true', () => {
-      const { content } = renderButton(mock<Props>({ selected: true }))
+      const { button } = renderButton(mock<Props>({ selected: true }))
 
-      expect(content).toHaveClass(styles.container)
-      expect(content).toHaveClass(styles.selected)
+      expect(button).toHaveClass(styles.container)
+      expect(button).toHaveClass(styles.selected)
     })
   })
 
@@ -44,14 +44,14 @@ describe('test Button', () => {
   ) {
     const container = render(<Button {...props}>{children}</Button>)
     const button = container.getByRole('button')
-    const content = button.children[0]
 
-    return { container, button, content }
+    return { container, button }
   }
 })
+
 jest.mock('components', () => ({
   Tabbable: (props: any) => (
-    <button onClick={props.onClick} data-testid="Tabbable">
+    <button onClick={props.onClick} className={props.className}>
       {props.children}
     </button>
   ),

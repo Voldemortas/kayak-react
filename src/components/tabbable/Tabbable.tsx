@@ -3,12 +3,13 @@ import { ReactNode, useRef } from 'react'
 import useButton from './useTabbable'
 
 export interface Props {
-  onClick: () => void
+  onClick?: () => void
+  className?: string
   children: ReactNode
 }
 
 const VehicleButton = (props: Props) => {
-  const { onClick, children } = props
+  const { onClick, children, className } = props
   const containerRef = useRef<HTMLDivElement>(null)
   useButton(containerRef)
 
@@ -18,7 +19,7 @@ const VehicleButton = (props: Props) => {
       tabIndex={0}
       role="button"
       ref={containerRef}
-      className={styles.container}
+      className={[styles.tabbable, className ?? ''].join(' ')}
     >
       {children}
     </div>

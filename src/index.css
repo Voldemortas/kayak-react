@@ -14,3 +14,8 @@ body {
   color: #192024;
   line-height: 18px;
 }
+
+*:focus-visible {
+  outline-color: var(--teal-color);
+  outline-offset: 4px;
+}
