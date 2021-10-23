@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { mock } from 'jest-mock-extended'
-import useButton from './useButton'
+import useTabbable from './useTabbable'
 
-describe('test useButton', () => {
+describe('test useTabbable', () => {
   let element: HTMLElement
   let onClick: jest.SpyInstance
 
@@ -13,13 +13,13 @@ describe('test useButton', () => {
     })
 
     it('should add event listener to element on mount', () => {
-      renderUseButton(element)
+      renderUseTabbable(element)
 
       expect(element.addEventListener).toHaveBeenCalled()
     })
 
     it('should remove event listener to element on unmount', () => {
-      renderUseButton(element).unmount()
+      renderUseTabbable(element).unmount()
 
       expect(element.removeEventListener).toHaveBeenCalled()
     })
@@ -30,7 +30,7 @@ describe('test useButton', () => {
       element = render(<div data-testid="element" />).getByTestId('element')
       onClick = jest.spyOn(element, 'click')
 
-      renderUseButton(element)
+      renderUseTabbable(element)
     })
 
     it('should call element onclick callback on enter key', () => {
@@ -50,7 +50,7 @@ describe('test useButton', () => {
     })
   })
 
-  function renderUseButton(element: HTMLElement) {
-    return renderHook(() => useButton({ current: element }))
+  function renderUseTabbable(element: HTMLElement) {
+    return renderHook(() => useTabbable({ current: element }))
   }
 })

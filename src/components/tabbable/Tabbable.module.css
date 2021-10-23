@@ -1,0 +1,11 @@
+.container {
+  cursor: pointer;
+  user-select: none;
+  width: fit-content;
+  height: fit-content;
+}
+
+.container:focus-visible {
+  outline-color: var(--teal-color);
+  outline-offset: 4px;
+}

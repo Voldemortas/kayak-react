@@ -3,8 +3,6 @@
   border-color: var(--background-hover-color);
   border-width: 1px;
   border-style: solid;
-  cursor: pointer;
-  user-select: none;
   padding: 4px 8px;
   margin: 0 4px 16px 0;
   height: 50px;
@@ -13,11 +11,6 @@
 
 .container:hover {
   border-color: var(--border-hover-color);
-}
-
-.container:focus-visible {
-  outline-color: #0b7b99;
-  outline-offset: 4px;
 }
 
 .container:active {
