@@ -1,0 +1,15 @@
+:root {
+  --background-selected-color: rgb(44, 52, 57);
+  --border-hover-color: rgb(31, 40, 45);
+  --background-hover-color: rgb(155, 168, 176);
+  --background-tooltip-color: #1f282d;
+}
+
+body {
+  font-weight: 700;
+  font-family: HelveticaNeue-Bold, 'Helvetica Neue', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+  font-size: 12px;
+  color: #192024;
+  line-height: 18px;
+}
