@@ -1,12 +1,13 @@
 import { Vehicle, RestVehicle } from 'commons'
 import { useEffect, useState } from 'react'
 
-type Response = {
+export type HookResponse = {
   vehicles: Vehicle[] | undefined
   toggleVehicle: (index: number) => void
+  resetSelected: () => void
 }
 
-function useApp(): Response {
+function useApp(): HookResponse {
   const [vehicles, setVehicles] = useState<Vehicle[] | undefined>(undefined)
 
   useEffect(() => {
@@ -27,7 +28,11 @@ function useApp(): Response {
     ])
   }
 
-  return { vehicles, toggleVehicle }
+  function resetSelected() {
+    setVehicles(vehicles?.map((vehicle) => ({ ...vehicle, isSelected: false })))
+  }
+
+  return { vehicles, toggleVehicle, resetSelected }
 }
 
 async function getVehicles(): Promise<Vehicle[] | undefined> {

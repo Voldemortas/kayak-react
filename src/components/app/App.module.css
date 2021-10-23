@@ -2,6 +2,21 @@
   height: 92px;
 }
 
+.app {
+  width: fit-content;
+}
+
 .container {
   display: flex;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.reset {
+  color: var(--teal-color);
+  margin-right: 4px;
 }

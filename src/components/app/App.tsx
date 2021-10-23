@@ -1,9 +1,9 @@
 import styles from './App.module.css'
-import { Skeleton, VehicleButton } from 'components'
+import { Skeleton, Tabbable, VehicleButton, VehicleRow } from 'components'
 import useApp from './useApp'
 
 function App() {
-  const { vehicles, toggleVehicle } = useApp()
+  const { vehicles, toggleVehicle, resetSelected } = useApp()
 
   return (
     <>
@@ -24,7 +24,13 @@ function App() {
 
   function renderButtons() {
     return (
-      <>
+      <div className={styles.app}>
+        <div className={styles.header}>
+          <div>Car type</div>
+          <Tabbable className={styles.reset} onClick={resetSelected}>
+            Reset
+          </Tabbable>
+        </div>
         <div className={styles.container}>
           {vehicles!.map((vehicle, index) => (
             <VehicleButton
@@ -34,7 +40,7 @@ function App() {
             />
           ))}
         </div>
-      </>
+      </div>
     )
   }
 }

@@ -5,9 +5,11 @@ import App from './App'
 
 import * as useApp from './useApp'
 import { act } from 'react-dom/test-utils'
+import { Children } from 'react'
 
 describe('App', () => {
   const toggleVehicle = jest.fn()
+  const resetSelected = jest.fn()
 
   describe('useApp returns undefined vehicles', () => {
     beforeEach(() => {
@@ -44,10 +46,22 @@ describe('App', () => {
 
       expect(toggleVehicle).toHaveBeenCalledWith(1)
     })
+
+    test('Reset calls resetSelected hook callback', () => {
+      const container = render(<App />)
+
+      act(() => {
+        container.getByText('Reset').click()
+      })
+
+      expect(resetSelected).toHaveBeenCalled()
+    })
   })
 
   function spyHook(vehicles: Vehicle[] | undefined) {
-    jest.spyOn(useApp, 'default').mockReturnValue({ vehicles, toggleVehicle })
+    jest
+      .spyOn(useApp, 'default')
+      .mockReturnValue({ vehicles, toggleVehicle, resetSelected })
   }
 })
 
@@ -55,5 +69,8 @@ jest.mock('components', () => ({
   Skeleton: () => <span data-testid="Skeleton" />,
   VehicleButton: (props: any) => (
     <button data-testid="VehicleButton" onClick={props.toggle} />
+  ),
+  Tabbable: (props: any) => (
+    <button onClick={props.onClick}>{props.children}</button>
   ),
 }))

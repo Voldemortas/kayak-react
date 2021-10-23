@@ -6,19 +6,12 @@ import {
 } from '@testing-library/react-hooks'
 import { RestVehicle, Vehicle } from 'commons'
 import mock from 'jest-mock-extended/lib/Mock'
-import useApp from './useApp'
+import useApp, { HookResponse } from './useApp'
 
 const VEHICLES = [mock<RestVehicle>(), mock<RestVehicle>(), mock<RestVehicle>()]
 
 describe('test useTemplate', () => {
-  let hook: RenderHookResult<
-    unknown,
-    {
-      vehicles: Vehicle[] | undefined
-      toggleVehicle: (index: number) => void
-    },
-    Renderer<unknown>
-  >
+  let hook: RenderHookResult<unknown, HookResponse, Renderer<unknown>>
 
   beforeEach(async () => {
     mockFetch()
@@ -45,6 +38,32 @@ describe('test useTemplate', () => {
 
   it('should toggle the last vehicle', () => {
     toggleVehicleAndAssert(2)
+  })
+
+  it('should resetAll selected to false', () => {
+    let preResetVehicles: Vehicle[] = []
+
+    act(() => {
+      hook.result.current.toggleVehicle(0)
+    })
+    act(() => {
+      hook.result.current.toggleVehicle(1)
+    })
+    act(() => {
+      hook.result.current.toggleVehicle(2)
+    })
+    preResetVehicles = [...hook.result.current.vehicles!]
+
+    act(() => {
+      hook.result.current.resetSelected()
+    })
+
+    const vehicles = hook.result.current.vehicles!
+
+    expect(
+      preResetVehicles.filter((vehicle) => vehicle.isSelected),
+    ).toHaveLength(3)
+    expect(vehicles.filter((vehicle) => !vehicle.isSelected)).toHaveLength(3)
   })
 
   function toggleVehicleAndAssert(index: number) {
