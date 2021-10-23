@@ -1,9 +1,9 @@
 import styles from './App.module.css'
-import { Skeleton } from 'components'
+import { Skeleton, VehicleButton } from 'components'
 import useApp from './useApp'
 
 function App() {
-  const { vehicles } = useApp()
+  const { vehicles, toggleVehicle } = useApp()
 
   return (
     <>
@@ -25,9 +25,15 @@ function App() {
   function renderButtons() {
     return (
       <>
-        <span className={styles.template}>
-          {vehicles!.map((vehicle) => vehicle.name).join(', ')}
-        </span>
+        <div className={styles.container}>
+          {vehicles!.map((vehicle, index) => (
+            <VehicleButton
+              vehicle={vehicle}
+              toggle={() => toggleVehicle(index)}
+              key={index}
+            />
+          ))}
+        </div>
       </>
     )
   }

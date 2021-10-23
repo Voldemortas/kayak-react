@@ -4,33 +4,56 @@ import { Vehicle } from 'commons'
 import App from './App'
 
 import * as useApp from './useApp'
+import { act } from 'react-dom/test-utils'
 
 describe('App', () => {
   const toggleVehicle = jest.fn()
 
-  test('useApp returns undefined vehicles', () => {
-    spypHook(undefined)
+  describe('useApp returns undefined vehicles', () => {
+    beforeEach(() => {
+      spyHook(undefined)
+    })
 
-    const container = render(<App />)
+    test('renders 5 skeletons', () => {
+      const container = render(<App />)
 
-    expect(container.queryAllByTestId('Skeleton')).toHaveLength(5)
+      expect(container.queryAllByTestId('Skeleton')).toHaveLength(5)
+    })
   })
 
-  test('useApp returns defined vehicles', () => {
-    const vehicle = mock<Vehicle>({ name: 'adzin' })
-    spypHook([vehicle])
+  describe('useApp returns two defined vehicles', () => {
+    beforeEach(() => {
+      const vehicle = mock<Vehicle>({ name: 'adzin' })
+      const vehicle2 = mock<Vehicle>({ name: 'dva' })
+      spyHook([vehicle, vehicle2])
+    })
 
-    const container = render(<App />)
+    test('renders two VehicleButtons', () => {
+      const container = render(<App />)
 
-    expect(container.queryAllByTestId('Skeleton')).toHaveLength(0)
-    expect(container.getByText('adzin')).toBeInTheDocument()
+      expect(container.queryAllByTestId('Skeleton')).toHaveLength(0)
+      expect(container.queryAllByTestId('VehicleButton')).toHaveLength(2)
+    })
+
+    test('VehicleButton calls toggleVehicle callback from hook', () => {
+      const container = render(<App />)
+
+      act(() => {
+        container.getAllByTestId('VehicleButton')[1].click()
+      })
+
+      expect(toggleVehicle).toHaveBeenCalledWith(1)
+    })
   })
 
-  function spypHook(vehicles: Vehicle[] | undefined) {
+  function spyHook(vehicles: Vehicle[] | undefined) {
     jest.spyOn(useApp, 'default').mockReturnValue({ vehicles, toggleVehicle })
   }
 })
 
 jest.mock('components', () => ({
   Skeleton: () => <span data-testid="Skeleton" />,
+  VehicleButton: (props: any) => (
+    <button data-testid="VehicleButton" onClick={props.toggle} />
+  ),
 }))

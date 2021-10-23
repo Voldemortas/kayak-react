@@ -4,3 +4,9 @@ export type Vehicle = {
   name: string
   isSelected: boolean
 }
+
+export type RestVehicle = {
+  img: string
+  price: number
+  name: string
+}
