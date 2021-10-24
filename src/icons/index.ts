@@ -1,3 +1,5 @@
 import CheckmarkIcon from './checkmark'
+import ArrowIcon from './arrow'
+import XmarkIcon from './xmark'
 
-export { CheckmarkIcon }
+export { CheckmarkIcon, ArrowIcon, XmarkIcon }
