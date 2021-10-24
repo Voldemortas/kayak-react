@@ -1,9 +1,9 @@
 import styles from './Tabbable.module.css'
-import { ReactNode, useRef } from 'react'
-import useButton from './useTabbable'
+import { ReactNode, useRef, MouseEvent } from 'react'
+import useTabbable from './useTabbable'
 
 export interface Props {
-  onClick?: () => void
+  onClick?: (event: MouseEvent<HTMLDivElement, any>) => void
   className?: string
   children: ReactNode
 }
@@ -11,11 +11,11 @@ export interface Props {
 const VehicleButton = (props: Props) => {
   const { onClick, children, className } = props
   const containerRef = useRef<HTMLDivElement>(null)
-  useButton(containerRef)
+  useTabbable(containerRef)
 
   return (
     <div
-      onClick={onClick}
+      onClick={(event) => onClick && onClick(event)}
       tabIndex={0}
       role="button"
       ref={containerRef}

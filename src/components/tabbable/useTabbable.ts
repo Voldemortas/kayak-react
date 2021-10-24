@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react'
 
-export default function useButton(componentRef: RefObject<HTMLElement>) {
+export default function useTabbable(componentRef: RefObject<HTMLElement>) {
   useEffect(() => {
     addListeners()
 
