@@ -1,8 +1,9 @@
 :root {
-  --background-selected-color: rgb(44, 52, 57);
+  --background-selected-color: #363f45;
   --border-hover-color: rgb(31, 40, 45);
   --background-hover-color: rgb(155, 168, 176);
   --background-tooltip-color: #1f282d;
+  --selected-hover-color: #2c3439;
   --teal-color: #0b7b99;
 }
 
@@ -13,6 +14,11 @@ body {
   font-size: 12px;
   color: #192024;
   line-height: 18px;
+  background-color: #f0f0f0;
+}
+
+#root {
+  background-color: #fff;
 }
 
 *:focus-visible {

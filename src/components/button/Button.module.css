@@ -19,6 +19,11 @@
 
 .selected {
   color: #fff;
+  fill: #fff;
   border-color: var(--background-selected-color);
   background-color: var(--background-selected-color);
+}
+
+.selected:vhover {
+  background-color: var(--selected-hover-color) !important;
 }
