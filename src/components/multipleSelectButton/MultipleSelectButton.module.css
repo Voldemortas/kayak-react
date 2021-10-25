@@ -1,0 +1,56 @@
+.container {
+  position: relative;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 8px;
+}
+
+.details {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 18px;
+}
+
+.icon {
+  width: 15px;
+  right: -3px;
+  position: absolute;
+}
+
+.xmark {
+  top: 3px;
+}
+
+.rotated180 {
+  transform: rotate(180deg);
+}
+
+.rows {
+  background-color: #fff;
+  position: absolute;
+  border-radius: 8px;
+  padding: 8px 0;
+  top: 59px;
+  box-shadow: 0 10px 20px rgb(25 32 36 / 10%), 0 3px 6px rgb(25 32 36 / 4%),
+    0 -3px 6px rgb(25 32 36 / 4%);
+}

@@ -5,5 +5,15 @@ import Tabbable from './tabbable'
 import Button from './button'
 import VehicleButton from './vehicleButton'
 import VehicleRow from './vehicleRow'
+import MultipleSelectButton from './multipleSelectButton'
 
-export { App, Template, Skeleton, Tabbable, Button, VehicleButton, VehicleRow }
+export {
+  App,
+  Template,
+  Skeleton,
+  Tabbable,
+  Button,
+  VehicleButton,
+  VehicleRow,
+  MultipleSelectButton,
+}
