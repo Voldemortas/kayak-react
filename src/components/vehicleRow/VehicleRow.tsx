@@ -15,7 +15,13 @@ const VehicleRow = (props: Props) => {
     <Tabbable onClick={toggle}>
       <div className={styles.container}>
         <div className={styles.checkboxContainer}>
-          <input type="checkbox" className={styles.checkbox} tabIndex={-1} />
+          <input
+            type="checkbox"
+            className={styles.checkbox}
+            tabIndex={-1}
+            checked={vehicle.isSelected}
+            readOnly
+          />
           <div className={styles.box} />
           {vehicle.isSelected && <CheckmarkIcon className={styles.checkmark} />}
         </div>
