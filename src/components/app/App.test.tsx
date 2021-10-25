@@ -2,10 +2,8 @@ import { render } from '@testing-library/react'
 import { mock } from 'jest-mock-extended'
 import { Vehicle } from 'commons'
 import App from './App'
-
 import * as useApp from './useApp'
 import { act } from 'react-dom/test-utils'
-import { Children } from 'react'
 
 describe('App', () => {
   const toggleVehicle = jest.fn()
@@ -23,18 +21,36 @@ describe('App', () => {
     })
   })
 
-  describe('useApp returns two defined vehicles', () => {
+  it('should not render resetButton when no vehicles are selected', () => {
+    const vehicle = mock<Vehicle>({ isSelected: false })
+    spyHook([vehicle])
+
+    const container = render(<App />)
+
+    expect(container.queryByText('Reset')).not.toBeInTheDocument()
+  })
+
+  describe('useApp returns 6 defined vehicles', () => {
     beforeEach(() => {
       const vehicle = mock<Vehicle>({ name: 'adzin' })
-      const vehicle2 = mock<Vehicle>({ name: 'dva' })
-      spyHook([vehicle, vehicle2])
+      const vehicle2 = mock<Vehicle>({ name: 'dwa' })
+      const vehicle3 = mock<Vehicle>({ name: 'trīs' })
+      const vehicle4 = mock<Vehicle>({ name: 'četri' })
+      const vehicle5 = mock<Vehicle>({ name: 'pięc' })
+      const vehicle6 = mock<Vehicle>({ name: 'sex' })
+      spyHook([vehicle, vehicle2, vehicle3, vehicle4, vehicle5, vehicle6])
     })
 
-    test('renders two VehicleButtons', () => {
+    test('renders 4 VehicleButtons and 2 VehicleRow inside MultipleSelectButton', () => {
       const container = render(<App />)
 
       expect(container.queryAllByTestId('Skeleton')).toHaveLength(0)
-      expect(container.queryAllByTestId('VehicleButton')).toHaveLength(2)
+      expect(container.queryAllByTestId('VehicleButton')).toHaveLength(4)
+      expect(container.getByTestId('MultipleSelectButton')).toHaveAttribute(
+        'data-items',
+        'pięc,sex',
+      )
+      expect(container.queryAllByTestId('VehicleRow')).toHaveLength(2)
     })
 
     test('VehicleButton calls toggleVehicle callback from hook', () => {
@@ -42,16 +58,28 @@ describe('App', () => {
 
       act(() => {
         container.getAllByTestId('VehicleButton')[1].click()
+        container.getAllByTestId('VehicleRow')[1].click()
       })
 
       expect(toggleVehicle).toHaveBeenCalledWith(1)
+      expect(toggleVehicle).toHaveBeenCalledWith(5)
     })
 
-    test('Reset calls resetSelected hook callback', () => {
+    test('Reset calls resetSelected hook callback on Reset text', () => {
       const container = render(<App />)
 
       act(() => {
         container.getByText('Reset').click()
+      })
+
+      expect(resetSelected).toHaveBeenCalled()
+    })
+
+    test('Reset calls resetSelected hook callback on MultipleSelectButton reset', () => {
+      const container = render(<App />)
+
+      act(() => {
+        container.getByTestId('MultipleSelectButton').click()
       })
 
       expect(resetSelected).toHaveBeenCalled()
@@ -72,5 +100,17 @@ jest.mock('components', () => ({
   ),
   Tabbable: (props: any) => (
     <button onClick={props.onClick}>{props.children}</button>
+  ),
+  VehicleRow: (props: any) => (
+    <div onClick={props.toggle} data-testid="VehicleRow" />
+  ),
+  MultipleSelectButton: (props: any) => (
+    <div
+      onClick={props.resetHandler}
+      data-items={props.items.map((item: { name: any }) => item.name)}
+      data-testid="MultipleSelectButton"
+    >
+      {props.children}
+    </div>
   ),
 }))

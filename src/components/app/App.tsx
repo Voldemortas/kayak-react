@@ -1,6 +1,13 @@
 import styles from './App.module.css'
-import { Skeleton, Tabbable, VehicleButton, VehicleRow } from 'components'
+import {
+  MultipleSelectButton,
+  Skeleton,
+  Tabbable,
+  VehicleButton,
+  VehicleRow,
+} from 'components'
 import useApp from './useApp'
+import { Vehicle } from 'commons'
 
 function App() {
   const { vehicles, toggleVehicle, resetSelected } = useApp()
@@ -23,22 +30,43 @@ function App() {
   }
 
   function renderButtons() {
+    const firstVehicles = vehicles!.slice(0, 4)
+    const secondVehicles = vehicles!.slice(4)
+
     return (
       <div className={styles.app}>
         <div className={styles.header}>
           <div>Car type</div>
-          <Tabbable className={styles.reset} onClick={resetSelected}>
-            Reset
-          </Tabbable>
+          {vehicles!.some((vehicle) => vehicle.isSelected) && (
+            <Tabbable className={styles.reset} onClick={resetSelected}>
+              Reset
+            </Tabbable>
+          )}
         </div>
         <div className={styles.container}>
-          {vehicles!.map((vehicle, index) => (
+          {firstVehicles.map((vehicle, index) => (
             <VehicleButton
               vehicle={vehicle}
               toggle={() => toggleVehicle(index)}
               key={index}
             />
           ))}
+          <MultipleSelectButton<Vehicle>
+            getDetails={(item) => item.name}
+            resetHandler={resetSelected}
+            items={secondVehicles}
+            isItemSelected={(item) => item.isSelected}
+          >
+            <>
+              {secondVehicles.map((vehicle, index) => (
+                <VehicleRow
+                  key={vehicle.name}
+                  toggle={() => toggleVehicle(index + 4)}
+                  vehicle={vehicle}
+                />
+              ))}
+            </>
+          </MultipleSelectButton>
         </div>
       </div>
     )
